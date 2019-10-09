@@ -1,5 +1,32 @@
-<h1>Main board Of tasks</h1>
+<div class="tasks">
+ 
+    {{> header}}
 
-{{> tasks}}
+    <div class="tasks-scroll">
+        <div class="addTask">
+            <a href="" class="addTask-star">Pick urgent</a>
+            <a href="" class="addTask-date">Pick date</a>
+            <input type="text" name="" id="" class="addTask-input" placeholder="Add a to-do...">
+        </div>
 
-<button id="signOutUser" >logout</button>
+        <div class="task-list">
+            <ol class="tasks">
+                {{> tasks}}
+                <li class="taskItem">
+                    <div class="taskItem-body">
+                        <a href="" class="taskItem-checkbox">checkbox</a>
+                        <span class="taskItem-title"></span>
+                        <a href="" class="taskItem-star"></a>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="tasks-404">
+            <h2>
+                <text rel="coachmark_starred_list_empty">You have no to-dos</text>
+            </h2>
+        </div>
+    </div>
+
+</div>
+<button id="signOutUser">logout</button>
