@@ -20,9 +20,12 @@ $('#main').on('click','#signOutUser',auth.signOutUser);
 $('#main').on('keypress','#taskName',(e)=>{
    
     const task = $(e.currentTarget).val()
+    const userID=auth.currentUser()
+    console.log(userID)
     if (e.keyCode == 13){        
-        database.setTask(task)
+        database.setTask(userID,task);
         $(e.currentTarget).val('')
+        database.getTasks(userID);
     }
 })
 

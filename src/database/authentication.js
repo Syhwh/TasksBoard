@@ -16,6 +16,7 @@ const views = require('../views');
             var uid = user.uid;
             var providerData = user.providerData;
             views.mainBoardView();
+            database.getTasks(uid);
         } else {
            // alert ('is not logged in')
         }
@@ -23,22 +24,22 @@ const views = require('../views');
 //}
 
 const signUpUser =()=>{
-    const user =$('#inputUser').val();
-    const email = $('#inputEmail').val();
-    const password = $('#inputPassword').val();
-    if (email.length < 4) {
+    const userName =$('#inputUser').val();
+    const userEmail = $('#inputEmail').val();
+    const userPassword = $('#inputPassword').val();
+    if (userEmail.length < 4) {
         alert('Please enter an email address.');
         return;
     }
-    if (password.length < 4) {
+    if (userPassword.length < 4) {
         alert('Please enter a password.');
         return;
     }
  
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
     .then( ()=>{ 
         const userId=firebase.auth().currentUser.uid;// take the Id   
-        database.setUsers(userId,name,email)
+        database.setUsers(userId,userName,userEmail)
         signOutUser(); 
     } )    
     .catch(function (error) {
@@ -58,19 +59,19 @@ const signUpUser =()=>{
 
 const  loginUser =()=> {
     
-        var email = $('#inputEmail').val();
-        var password = $('#inputPassword').val();
+        var userEmail = $('#inputEmail').val();
+        var userPassword = $('#inputPassword').val();
 
-        if (email.length < 4) {
+        if (userEmail.length < 4) {
             alert('Please enter an email address.');
             return;
         }
-        if (password.length < 4) {
+        if (userPassword.length < 4) {
             alert('Please enter a password.');
             return;
         }
      
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
          .catch(function (error) {
     
             var errorCode = error.code;
@@ -98,7 +99,9 @@ const signOutUser=()=>{
       });
 }
 
-const currentUser= firebase.auth().currentUser;
+const currentUser= ()=> {
+  return  firebase.auth().currentUser.uid
+};
 export  { 
    // initApp,
     signUpUser,
